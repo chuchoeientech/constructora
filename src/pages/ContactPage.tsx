@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, Building2 } from 'lucide-react';
+import { Mail, Phone, Clock, Building2 } from 'lucide-react';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -39,7 +39,7 @@ const ContactPage = () => {
           <div className="lg:col-span-1 space-y-8">
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <h2 className="text-2xl font-bold text-gray-800 mb-6">Información de Contacto</h2>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
                   <Building2 className="w-6 h-6 text-blue-600 mt-1" />
