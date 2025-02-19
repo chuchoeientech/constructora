@@ -1,4 +1,3 @@
-import React from 'react';
 import { Building2, Facebook, Instagram, Linkedin } from 'lucide-react';
 
 const Footer = () => {
@@ -49,7 +48,9 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Constructora PY. Todos los derechos reservados.</p>
+          <a href='https://eientec.com/' target='_blank'>
+            <p>&copy; {new Date().getFullYear()} Desarrollado por EiEn Innovations Tech.</p>
+          </a>
         </div>
       </div>
     </footer>

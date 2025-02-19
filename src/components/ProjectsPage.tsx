@@ -1,4 +1,3 @@
-import React from 'react';
 
 const projects = [
   {
@@ -80,7 +79,7 @@ const ProjectsPage = () => {
                     className="w-full h-[400px] object-cover"
                   />
                 </div>
-                
+
                 {/* Project Details */}
                 <div className="lg:w-1/2 p-8">
                   <h2 className="text-3xl font-bold text-gray-800 mb-4">{project.title}</h2>
@@ -105,7 +104,7 @@ const ProjectsPage = () => {
                   <p className="text-gray-600 mb-8">{project.description}</p>
                 </div>
               </div>
-              
+
               {/* Additional Images */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-8 bg-gray-50">
                 {project.additionalImages.map((image, i) => (
