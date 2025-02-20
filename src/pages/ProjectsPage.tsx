@@ -64,58 +64,78 @@ const projects = [
 
 const ProjectsPage = () => {
   return (
-    <div className="pt-24 pb-20 bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-24 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-12">Obras Realizadas</h1>
-        <div className="space-y-20">
+        <h1 className="text-5xl font-bold text-center text-gray-800 mb-4">Obras Realizadas</h1>
+        <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
+          Descubre nuestra trayectoria a través de proyectos emblemáticos que han transformado el paisaje urbano de Paraguay
+        </p>
+
+        <div className="space-y-32">
           {projects.map((project, index) => (
-            <div key={project.id} className="bg-white rounded-lg shadow-xl overflow-hidden">
+            <div
+              key={project.id}
+              className="bg-white rounded-2xl shadow-2xl overflow-hidden transform hover:scale-[1.02] transition-transform duration-300"
+            >
               <div className={`flex flex-col lg:flex-row ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-                {/* Main Image */}
-                <div className="lg:w-1/2">
+                {/* Main Image Section */}
+                <div className="lg:w-1/2 relative group">
+                  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300 z-10"></div>
                   <img
                     src={project.mainImage}
                     alt={project.title}
-                    className="w-full h-[400px] object-cover"
+                    className="w-full h-[500px] object-cover"
                   />
                 </div>
 
-                {/* Project Details */}
-                <div className="lg:w-1/2 p-8">
-                  <h2 className="text-3xl font-bold text-gray-800 mb-4">{project.title}</h2>
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div>
-                      <span className="text-sm text-gray-500">Año de finalización</span>
-                      <p className="font-semibold text-blue-600">{project.completionYear}</p>
+                {/* Project Details Section */}
+                <div className="lg:w-1/2 p-10 flex flex-col justify-between">
+                  <div>
+                    <h2 className="text-3xl font-bold text-gray-800 mb-6 leading-tight">
+                      {project.title}
+                    </h2>
+                    <div className="grid grid-cols-2 gap-6 mb-8">
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <span className="text-sm text-gray-500 block mb-1">Año de finalización</span>
+                        <p className="font-semibold text-blue-600">{project.completionYear}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <span className="text-sm text-gray-500 block mb-1">Inversión</span>
+                        <p className="font-semibold text-blue-600">{project.investment}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <span className="text-sm text-gray-500 block mb-1">Área</span>
+                        <p className="font-semibold text-blue-600">{project.area}</p>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <span className="text-sm text-gray-500 block mb-1">Ubicación</span>
+                        <p className="font-semibold text-blue-600">{project.location}</p>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-sm text-gray-500">Inversión</span>
-                      <p className="font-semibold text-blue-600">{project.investment}</p>
-                    </div>
-                    <div>
-                      <span className="text-sm text-gray-500">Área</span>
-                      <p className="font-semibold text-blue-600">{project.area}</p>
-                    </div>
-                    <div>
-                      <span className="text-sm text-gray-500">Ubicación</span>
-                      <p className="font-semibold text-blue-600">{project.location}</p>
-                    </div>
+                    <p className="text-gray-600 leading-relaxed">{project.description}</p>
                   </div>
-                  <p className="text-gray-600 mb-8">{project.description}</p>
                 </div>
               </div>
 
-              {/* Additional Images */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-8 bg-gray-50">
-                {project.additionalImages.map((image, i) => (
-                  <img
-                    key={i}
-                    src={image}
-                    alt={`${project.title} - Vista ${i + 1}`}
-                    className="w-full h-48 object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
-                  />
-                ))}
-              </div>
+              {/* Additional Images Section - Adaptive Grid */}
+              {project.additionalImages && project.additionalImages.length > 0 && (
+                <div className={`grid gap-4 p-8 bg-gray-50 ${project.additionalImages.length === 1 ? 'grid-cols-1' :
+                  project.additionalImages.length === 2 ? 'grid-cols-2' :
+                    project.additionalImages.length === 3 ? 'grid-cols-3' :
+                      'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+                  }`}>
+                  {project.additionalImages.map((image, i) => (
+                    <div key={i} className="relative group overflow-hidden rounded-xl">
+                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 z-10"></div>
+                      <img
+                        src={image}
+                        alt={`${project.title} - Vista ${i + 1}`}
+                        className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
