@@ -40,7 +40,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
               <Building2 className={`h-8 w-8 ${logoClass}`} />
-              <span className={logoTextClass}>Constructora PY</span>
+              <span className={logoTextClass}>FENAR</span>
             </Link>
           </div>
 
