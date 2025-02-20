@@ -8,7 +8,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <Building2 className="h-8 w-8 text-blue-500" />
-              <span className="ml-2 text-xl font-bold">Constructora PY</span>
+              <span className="ml-2 text-xl font-bold">FENAR</span>
             </div>
             <p className="text-gray-400">
               Construyendo el futuro de Paraguay con calidad y excelencia desde hace más de 20 años.
