@@ -1,9 +1,9 @@
-import Hero from '../components/Hero';
-import CurrentProjects from '../components/CurrentProjects';
-import Stats from '../components/Stats';
-import LocationMap from '../components/LocationMap';
-import ClientsCarousel from '../components/ClientsCarousel';
-import ContactForm from '../components/ContactForm';
+import Hero from '../components/homepage/Hero';
+import CurrentProjects from '../components/homepage/CurrentProjects';
+import Stats from '../components/homepage/Stats';
+import LocationMap from '../components/homepage/LocationMap';
+import ClientsCarousel from '../components/homepage/ClientsCarousel';
+import ContactForm from '../components/homepage/ContactForm';
 
 const HomePage = () => {
   return (
