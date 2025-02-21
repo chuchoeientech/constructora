@@ -16,6 +16,10 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);  
+
   const isHomePage = location.pathname === '/';
   const navbarClass = `fixed w-full z-50 transition-all duration-300 ${isScrolled || !isHomePage
     ? 'bg-white shadow-lg'
