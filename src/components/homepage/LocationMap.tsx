@@ -67,6 +67,12 @@ const LocationMap = () => {
               zoom={7}
               style={{ height: '100%', width: '100%' }}
               className="z-0"
+              dragging={false}
+              scrollWheelZoom={false}
+              doubleClickZoom={false}
+              zoomControl={false}
+              touchZoom={false}
+              keyboard={false}
             >
               <TileLayer
                 url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -90,6 +96,7 @@ const LocationMap = () => {
                 </Marker>
               ))}
             </MapContainer>
+
           </div>
         </div>
       </div>
