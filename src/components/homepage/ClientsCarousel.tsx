@@ -1,4 +1,3 @@
-import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -71,7 +70,7 @@ const ClientsCarousel = () => {
               enabled: true,
               hideOnClick: true,
             }}
-            pagination={{ 
+            pagination={{
               clickable: true,
               dynamicBullets: true
             }}
@@ -81,7 +80,7 @@ const ClientsCarousel = () => {
               1024: { slidesPerView: 3, spaceBetween: 30 },
               1280: { slidesPerView: 4, spaceBetween: 32 },
             }}
-            className="!pb-14"
+            className="!pb-14 custom-swiper"
           >
             {clients.map((client) => (
               <SwiperSlide key={client.id} className="h-auto">

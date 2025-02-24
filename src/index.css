@@ -55,3 +55,33 @@
 .leaflet-popup-tip-container {
   filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07));
 }
+
+.custom-swiper .swiper-button-prev,
+.custom-swiper .swiper-button-next {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Fondo semitransparente */
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease-in-out;
+}
+
+.custom-swiper .swiper-button-prev:hover,
+.custom-swiper .swiper-button-next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  /* Más oscuro al pasar el mouse */
+}
+
+.custom-swiper .swiper-button-prev {
+  left: -60px;
+  /* Separa la flecha izquierda */
+}
+
+.custom-swiper .swiper-button-next {
+  right: -60px;
+  /* Separa la flecha derecha */
+}
