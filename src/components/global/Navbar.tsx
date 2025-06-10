@@ -43,9 +43,6 @@ const Navbar = () => {
   const linkClass = `font-medium transition-colors duration-300 ${isScrolled || !isHomePage ? 'text-gray-700 text-primary hover:text-gray-800' : 'text-white hover:text-primary'
     }`;
 
-  const logoTextClass = `ml-2 text-xl font-bold transition-colors duration-300 ${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'
-    }`;
-
   return (
     <nav className={navbarClass}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
