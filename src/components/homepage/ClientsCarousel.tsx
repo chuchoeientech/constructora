@@ -4,6 +4,17 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
+// Estilos personalizados para los bullets
+const swiperStyles = `
+  .swiper-pagination-bullet {
+    background: #F00D0D !important;
+    opacity: 0.5;
+  }
+  .swiper-pagination-bullet-active {
+    opacity: 1;
+  }
+`;
+
 const clients = [
   {
     id: 1,
@@ -50,6 +61,7 @@ const clients = [
 const ClientsCarousel = () => {
   return (
     <section className="py-32 bg-gray-50">
+      <style>{swiperStyles}</style>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-4">Nuestros Clientes</h2>
         <p className="text-gray-600 text-center max-w-2xl mx-auto mb-16">

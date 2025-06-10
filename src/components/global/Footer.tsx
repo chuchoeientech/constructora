@@ -1,15 +1,32 @@
-import { Building2, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Facebook, Instagram, Linkedin } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import client, { urlFor } from '../../sanityClient';
 
 const Footer = () => {
+  const [logo, setLogo] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      const result = await client.fetch('*[_type == "webImages"][0].logo');
+      setLogo(result);
+    };
+    fetchLogo();
+  }, []);
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center mb-4">
-              <Building2 className="h-8 w-8 text-blue-500" />
-              <span className="ml-2 text-xl font-bold">FENAR</span>
+              {logo && (
+                <img 
+                  src={urlFor(logo).url()} 
+                  alt="FENAR Logo" 
+                  className="h-32 w-32 object-contain"
+                />
+              )}
             </div>
             <p className="text-gray-400">
               Construyendo el futuro de Paraguay con calidad y excelencia desde hace más de 20 años.
