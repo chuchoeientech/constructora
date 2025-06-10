@@ -26,13 +26,13 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <button 
                 onClick={() => navigate('/proyectos')}
-                className="px-8 py-4 bg-blue-600 text-white rounded-full text-lg font-semibold hover:bg-blue-700 transition duration-300 transform hover:scale-105"
+                className="px-8 py-4 bg-primary text-white rounded-full text-lg font-semibold hover:bg-primary/90 transition duration-300 transform hover:scale-105"
               >
                 Conoce Nuestros Proyectos
               </button>
               <button 
                 onClick={() => navigate('/contacto')}
-                className="px-8 py-4 border-2 border-white text-white rounded-full text-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300 transform hover:scale-105"
+                className="px-8 py-4 border-2 border-white text-white rounded-full text-lg font-semibold hover:bg-white hover:text-primary transition duration-300 transform hover:scale-105"
               >
                 Contáctanos
               </button>

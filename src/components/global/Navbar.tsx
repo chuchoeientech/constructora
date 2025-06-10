@@ -1,11 +1,27 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Building2, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { client, urlFor } from '../../sanityClient';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [logo, setLogo] = useState<any>(null);
   const location = useLocation();
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const query = `*[_type == "webImages"][0].logo`;
+        const result = await client.fetch(query);
+        setLogo(result);
+      } catch (error) {
+        console.error("Error fetching logo:", error);
+      }
+    };
+
+    fetchLogo();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,10 +40,7 @@ const Navbar = () => {
   const navbarClass = `fixed w-full z-50 transition-all duration-300 ${isScrolled || !isHomePage ? 'bg-white shadow-lg' : 'bg-transparent'
     }`;
 
-  const linkClass = `font-medium transition-colors duration-300 ${isScrolled || !isHomePage ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'
-    }`;
-
-  const logoClass = `transition-colors duration-300 ${isScrolled || !isHomePage ? 'text-blue-600' : 'text-white'
+  const linkClass = `font-medium transition-colors duration-300 ${isScrolled || !isHomePage ? 'text-gray-700 text-primary hover:text-gray-800' : 'text-white hover:text-primary'
     }`;
 
   const logoTextClass = `ml-2 text-xl font-bold transition-colors duration-300 ${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'
@@ -39,8 +52,15 @@ const Navbar = () => {
         <div className="flex justify-between h-20">
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
-              <Building2 className={`h-8 w-8 ${logoClass}`} />
-              <span className={logoTextClass}>FENAR</span>
+              {logo ? (
+                <img 
+                  src={urlFor(logo).url()} 
+                  alt="FENAR Logo" 
+                  className="h-14 w-auto object-contain transition-transform duration-300 ease-in-out hover:scale-110"
+                />
+              ) : (
+                <div className="h-14 w-14 bg-gray-200 animate-pulse rounded"></div>
+              )}
             </Link>
           </div>
 
@@ -50,8 +70,8 @@ const Navbar = () => {
             <Link to="/proyectos" className={linkClass}>Obras</Link>
             <Link to="/clientes" className={linkClass}>Clientes</Link>
             <Link to="/contacto" className={`${linkClass} px-6 py-2 rounded-full border-2 transition-all duration-300 ${isScrolled || !isHomePage
-                ? 'border-blue-600 hover:bg-blue-600 hover:text-white'
-                : 'border-white hover:bg-white hover:text-blue-600'
+                ? 'border-primary hover:bg-primary hover:text-white'
+                : 'border-white hover:bg-white hover:text-primary'
               }`}>Contacto</Link>
           </div>
 
@@ -75,28 +95,28 @@ const Navbar = () => {
         <div className="px-4 pt-4 pb-6 space-y-4">
           <Link
             to="/"
-            className="block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
+            className="block px-3 py-2 text-gray-700 hover:text-primary font-medium"
             onClick={() => setIsMenuOpen(false)}
           >
             Inicio
           </Link>
           <Link
             to="/proyectos"
-            className="block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
+            className="block px-3 py-2 text-gray-700 hover:text-primary font-medium"
             onClick={() => setIsMenuOpen(false)}
           >
             Obras
           </Link>
           <Link
             to="/clientes"
-            className="block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
+            className="block px-3 py-2 text-gray-700 hover:text-primary font-medium"
             onClick={() => setIsMenuOpen(false)}
           >
             Clientes
           </Link>
           <Link
             to="/contacto"
-            className="block px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
+            className="block px-3 py-2 text-gray-700 hover:text-primary font-medium"
             onClick={() => setIsMenuOpen(false)}
           >
             Contacto

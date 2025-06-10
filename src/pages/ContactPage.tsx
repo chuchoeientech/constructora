@@ -42,7 +42,7 @@ const ContactPage = () => {
 
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <Building2 className="w-6 h-6 text-blue-600 mt-1" />
+                  <Building2 className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Oficina Central</h3>
                     <p className="text-gray-600">Avda. Mariscal López 1234<br />Asunción, Paraguay</p>
@@ -50,7 +50,7 @@ const ContactPage = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <Phone className="w-6 h-6 text-blue-600 mt-1" />
+                  <Phone className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Teléfonos</h3>
                     <p className="text-gray-600">+595 21 123 4567<br />+595 981 123 456</p>
@@ -58,7 +58,7 @@ const ContactPage = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <Mail className="w-6 h-6 text-blue-600 mt-1" />
+                  <Mail className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Email</h3>
                     <p className="text-gray-600">info@constructorapy.com<br />ventas@constructorapy.com</p>
@@ -66,7 +66,7 @@ const ContactPage = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <Clock className="w-6 h-6 text-blue-600 mt-1" />
+                  <Clock className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Horario de Atención</h3>
                     <p className="text-gray-600">Lunes a Viernes: 8:00 - 17:00<br />Sábados: 8:00 - 12:00</p>
@@ -102,7 +102,7 @@ const ContactPage = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   />
                 </div>
@@ -117,7 +117,7 @@ const ContactPage = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   />
                 </div>
@@ -132,7 +132,7 @@ const ContactPage = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   />
                 </div>
@@ -146,7 +146,7 @@ const ContactPage = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   >
                     <option value="">Seleccione una opción</option>
@@ -167,7 +167,7 @@ const ContactPage = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     required
                   ></textarea>
                 </div>
@@ -176,7 +176,7 @@ const ContactPage = () => {
               <div className="mt-6">
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+                  className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary/90 transition duration-300"
                 >
                   Enviar mensaje
                 </button>

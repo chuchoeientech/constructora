@@ -38,12 +38,10 @@ const completedWorks = [
 ];
 
 const customIcon = new Icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-  shadowSize: [41, 41],
+  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiA1MiI+PHBhdGggZmlsbD0iI0YwMEQwRCIgZD0iTTE2IDBDNy4xNjMgMCAwIDcuMTYzIDAgMTZjMCAxMy4xOTIgMTYgMzYgMTYgMzZzMTYtMjIuODA4IDE2LTM2QzMyIDcuMTYzIDI0LjgzNyAwIDE2IDB6bTAgMjJjLTMuMzE0IDAtNi0yLjY4Ni02LTZzMi42ODYtNiA2LTYgNiAyLjY4NiA2IDYtMi42ODYgNi02IDZ6Ii8+PC9zdmc+',
+  iconSize: [32, 52],
+  iconAnchor: [16, 52],
+  popupAnchor: [0, -52],
 });
 
 const LocationMap = () => {

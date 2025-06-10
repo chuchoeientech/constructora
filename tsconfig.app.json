@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "fenar/schemaTypes/clientes.ts", "fenar/schemaTypes/index.ts", "fenar/schemaTypes/obras.ts", "fenar/schemaTypes/webImages.ts"]
 }

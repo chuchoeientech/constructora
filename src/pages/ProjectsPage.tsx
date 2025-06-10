@@ -1,19 +1,49 @@
 import { useState, useEffect } from "react";
-import client from "../contentfulClient";
-import { Entry } from "contentful";
-import { Project } from "../types";
 import { MapPin, Calendar, Ruler, DollarSign, X, Maximize2 } from "lucide-react";
+import client from "../sanityClient";
+import { urlFor } from "../sanityClient";
+
+interface Project {
+  _id: string;
+  title: string;
+  description: string;
+  mainImage: {
+    asset: {
+      url: string;
+    };
+  };
+  additionalImages: Array<{
+    asset: {
+      url: string;
+    };
+  }>;
+  completetionYear: string;
+  area: string;
+  location: string;
+  investment: string;
+}
 
 const ProjectsPage = () => {
-  const [projects, setProjects] = useState<Entry<Project>[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await client.getEntries<Project>({ content_type: "constructora" });
-        setProjects(response.items);
+        const query = `*[_type == "project"] {
+          _id,
+          title,
+          description,
+          mainImage,
+          additionalImages,
+          completetionYear,
+          area,
+          location,
+          investment
+        }`;
+        const response = await client.fetch(query);
+        setProjects(response);
       } catch (error) {
         console.error("Error fetching projects:", error);
       } finally {
@@ -28,6 +58,17 @@ const ProjectsPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <p className="text-xl text-gray-600 font-medium">Cargando proyectos...</p>
+      </div>
+    );
+  }
+
+  if (projects.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Aún no hay proyectos</h2>
+          <p className="text-gray-600">Estamos trabajando en mostrar nuestros proyectos próximamente.</p>
+        </div>
       </div>
     );
   }
@@ -47,23 +88,23 @@ const ProjectsPage = () => {
         <div className="space-y-8">
           {projects.map((project) => (
             <article
-              key={project.sys.id}
+              key={project._id}
               className="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-[1.01] transition-all duration-300"
             >
               <h2 className="text-2xl font-bold text-gray-900 p-6 border-b text-center">
-                {String(project.fields.title ?? "Sin título")}
+                {project.title || "Sin título"}
               </h2>
 
               <div className="flex flex-col lg:flex-row">
                 {/* Main Image */}
                 <div className="lg:w-1/2 h-[400px] relative group">
                   <button
-                    onClick={() => setSelectedImage((project.fields.mainImage.fields as any).file.url)}
+                    onClick={() => setSelectedImage(urlFor(project.mainImage).url())}
                     className="w-full h-full relative block overflow-hidden"
                   >
                     <img
-                      src={(project.fields.mainImage.fields as any).file.url}
-                      alt={String(project.fields.title ?? "Sin título")}
+                      src={urlFor(project.mainImage).url()}
+                      alt={project.title || "Sin título"}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
@@ -75,7 +116,7 @@ const ProjectsPage = () => {
                 {/* Project Information */}
                 <div className="lg:w-1/2 p-6 space-y-6">
                   <p className="text-gray-600">
-                    {String(project.fields.description ?? "Sin descripción")}
+                    {project.description || "Sin descripción"}
                   </p>
 
                   <div className="space-y-4">
@@ -83,7 +124,7 @@ const ProjectsPage = () => {
                       <Calendar className="w-5 h-5 text-blue-600 mr-3" />
                       <span>
                         <strong>Año de finalización:</strong>{" "}
-                        {String(project.fields.completetionYear ?? "Desconocido")}
+                        {project.completetionYear || "Desconocido"}
                       </span>
                     </div>
 
@@ -91,7 +132,7 @@ const ProjectsPage = () => {
                       <Ruler className="w-5 h-5 text-blue-600 mr-3" />
                       <span>
                         <strong>Área:</strong>{" "}
-                        {String(project.fields.area ?? "No especificado")}
+                        {project.area || "No especificado"}
                       </span>
                     </div>
 
@@ -99,7 +140,7 @@ const ProjectsPage = () => {
                       <MapPin className="w-5 h-5 text-blue-600 mr-3" />
                       <span>
                         <strong>Ubicación:</strong>{" "}
-                        {String(project.fields.location ?? "No especificada")}
+                        {project.location || "No especificada"}
                       </span>
                     </div>
 
@@ -107,7 +148,7 @@ const ProjectsPage = () => {
                       <DollarSign className="w-5 h-5 text-blue-600 mr-3" />
                       <span>
                         <strong>Inversión:</strong>{" "}
-                        {String(project.fields.investment ?? "No especificada")}
+                        {project.investment || "No especificada"}
                       </span>
                     </div>
                   </div>
@@ -115,19 +156,19 @@ const ProjectsPage = () => {
               </div>
 
               {/* Additional Images */}
-              {project.fields.additionalImages && Array.isArray(project.fields.additionalImages) && (
+              {project.additionalImages && project.additionalImages.length > 0 && (
                 <div className="p-6 border-t">
                   <h3 className="text-lg font-semibold mb-6 text-center">Galería de Imágenes</h3>
                   <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4">
-                    {project.fields.additionalImages.map((image: any, index: number) => (
+                    {project.additionalImages.map((image, index) => (
                       <button
                         key={index}
-                        onClick={() => setSelectedImage((image?.fields as any)?.file?.url)}
+                        onClick={() => setSelectedImage(urlFor(image).url())}
                         className="group relative aspect-square overflow-hidden rounded-lg hover:shadow-xl transition-all duration-300"
                       >
                         <img
-                          src={(image?.fields as any)?.file?.url}
-                          alt={String(project.fields.title ?? "Sin título")}
+                          src={urlFor(image).url()}
+                          alt={project.title || "Sin título"}
                           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">

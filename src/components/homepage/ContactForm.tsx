@@ -33,15 +33,15 @@ const ContactForm = () => {
             </p>
             <div className="space-y-6">
               <div className="flex items-center">
-                <Phone className="w-6 h-6 text-blue-600 mr-4" />
+                <Phone className="w-6 h-6 text-primary mr-4" />
                 <span className="text-gray-600">+595 21 123 4567</span>
               </div>
               <div className="flex items-center">
-                <Mail className="w-6 h-6 text-blue-600 mr-4" />
+                <Mail className="w-6 h-6 text-primary mr-4" />
                 <span className="text-gray-600">contacto@constructorapy.com</span>
               </div>
               <div className="flex items-center">
-                <MapPin className="w-6 h-6 text-blue-600 mr-4" />
+                <MapPin className="w-6 h-6 text-primary mr-4" />
                 <span className="text-gray-600">Asunción, Paraguay</span>
               </div>
             </div>
@@ -58,7 +58,7 @@ const ContactForm = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-primary"
                   required
                 />
               </div>
@@ -72,7 +72,7 @@ const ContactForm = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-primary"
                   required
                 />
               </div>
@@ -86,7 +86,7 @@ const ContactForm = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-primary"
                   required
                 />
               </div>
@@ -100,13 +100,13 @@ const ContactForm = () => {
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-primary"
                   required
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+                className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary/90 transition duration-300"
               >
                 Enviar mensaje
               </button>
