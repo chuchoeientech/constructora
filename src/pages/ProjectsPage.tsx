@@ -5,8 +5,8 @@ import { urlFor } from "../sanityClient";
 
 interface Project {
   _id: string;
-  title: string;
-  description: string;
+  titulo: string;
+  descripcion: string;
   mainImage: {
     asset: {
       url: string;
@@ -17,7 +17,7 @@ interface Project {
       url: string;
     };
   }>;
-  completetionYear: string;
+  completationYear: string;
   area: string;
   location: string;
   investment: string;
@@ -31,13 +31,13 @@ const ProjectsPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const query = `*[_type == "project"] {
+        const query = `*[_type == "obras"] {
           _id,
-          title,
-          description,
+          titulo,
+          descripcion,
           mainImage,
           additionalImages,
-          completetionYear,
+          completationYear,
           area,
           location,
           investment
@@ -92,7 +92,7 @@ const ProjectsPage = () => {
               className="bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-[1.01] transition-all duration-300"
             >
               <h2 className="text-2xl font-bold text-gray-900 p-6 border-b text-center">
-                {project.title || "Sin título"}
+                {project.titulo || "Sin título"}
               </h2>
 
               <div className="flex flex-col lg:flex-row">
@@ -104,7 +104,7 @@ const ProjectsPage = () => {
                   >
                     <img
                       src={urlFor(project.mainImage).url()}
-                      alt={project.title || "Sin título"}
+                      alt={project.titulo || "Sin título"}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
@@ -116,20 +116,20 @@ const ProjectsPage = () => {
                 {/* Project Information */}
                 <div className="lg:w-1/2 p-6 space-y-6">
                   <p className="text-gray-600">
-                    {project.description || "Sin descripción"}
+                    {project.descripcion || "Sin descripción"}
                   </p>
 
                   <div className="space-y-4">
                     <div className="flex items-center text-gray-700">
-                      <Calendar className="w-5 h-5 text-blue-600 mr-3" />
+                      <Calendar className="w-5 h-5 text-primary mr-3" />
                       <span>
                         <strong>Año de finalización:</strong>{" "}
-                        {project.completetionYear || "Desconocido"}
+                        {project.completationYear || "Desconocido"}
                       </span>
                     </div>
 
                     <div className="flex items-center text-gray-700">
-                      <Ruler className="w-5 h-5 text-blue-600 mr-3" />
+                      <Ruler className="w-5 h-5 text-primary mr-3" />
                       <span>
                         <strong>Área:</strong>{" "}
                         {project.area || "No especificado"}
@@ -137,7 +137,7 @@ const ProjectsPage = () => {
                     </div>
 
                     <div className="flex items-center text-gray-700">
-                      <MapPin className="w-5 h-5 text-blue-600 mr-3" />
+                      <MapPin className="w-5 h-5 text-primary mr-3" />
                       <span>
                         <strong>Ubicación:</strong>{" "}
                         {project.location || "No especificada"}
@@ -145,7 +145,7 @@ const ProjectsPage = () => {
                     </div>
 
                     <div className="flex items-center text-gray-700">
-                      <DollarSign className="w-5 h-5 text-blue-600 mr-3" />
+                      <DollarSign className="w-5 h-5 text-primary mr-3" />
                       <span>
                         <strong>Inversión:</strong>{" "}
                         {project.investment || "No especificada"}
@@ -168,7 +168,7 @@ const ProjectsPage = () => {
                       >
                         <img
                           src={urlFor(image).url()}
-                          alt={project.title || "Sin título"}
+                          alt={project.titulo || "Sin título"}
                           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
