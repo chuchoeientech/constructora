@@ -31,15 +31,9 @@ const Hero = () => {
       </div>
 
       {/* Contenido principal */}
-      <div className="relative h-full flex items-center">
+      <div className="relative h-full flex items-center mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className={`text-white max-w-4xl transition-all duration-1000 transform ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            
-            {/* Badge de experiencia */}
-            <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-white/90 mb-8 border border-white/20">
-              <div className="w-2 h-2 bg-primary rounded-full mr-2 animate-pulse"></div>
-              Más de 20 años de experiencia
-            </div>
 
             {/* Título principal con animación */}
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
