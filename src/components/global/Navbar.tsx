@@ -148,11 +148,12 @@ const Navbar = () => {
 
       {/* Mobile menu mejorado */}
       <div
-        className={`absolute top-full left-0 w-full bg-white shadow-2xl border-b border-gray-100 transform transition-all duration-500 ease-out z-50 ${
+        className={`fixed top-0 left-0 w-full bg-white shadow-2xl border-b border-gray-100 transform transition-all duration-500 ease-out z-[100] ${
           isMenuOpen 
             ? 'translate-y-0 opacity-100' 
             : '-translate-y-full opacity-0 pointer-events-none'
         }`}
+        style={{ marginTop: '80px' }}
       >
         {/* Header del menú móvil */}
         <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
@@ -213,7 +214,7 @@ const Navbar = () => {
       {/* Overlay para cerrar menú */}
       {isMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black/10 z-40 md:hidden"
+          className="fixed inset-0 bg-black/10 z-[90] md:hidden"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
