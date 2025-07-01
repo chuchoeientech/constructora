@@ -31,7 +31,7 @@ const Hero = () => {
       </div>
 
       {/* Contenido principal */}
-      <div className="relative h-full flex items-center mt-20">
+      <div className="relative h-full flex items-center mt-20 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className={`text-white max-w-4xl transition-all duration-1000 transform ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
 
@@ -73,18 +73,6 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
               </button>
             </div>
-
-            {/* Estadísticas */}
-            <div className="mt-16 grid grid-cols-2 gap-8 max-w-2xl">
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">150+</div>
-                <div className="text-sm text-gray-300">Proyectos Completados</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">20+</div>
-                <div className="text-sm text-gray-300">Años de Experiencia</div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -95,9 +83,6 @@ const Hero = () => {
           <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
-
-      {/* Gradiente inferior mejorado */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
     </div>
   );
 };

@@ -67,8 +67,7 @@ const Navbar = () => {
   // Datos del menú móvil
   const mobileMenuItems = [
     { to: "/", label: "Inicio", icon: Home },
-    { to: "/proyectos", label: "Obras", icon: Building2 },
-    { to: "/clientes", label: "Clientes", icon: Users },
+    { to: "/proyectos", label: "Obras Ejecutadas", icon: Building2 },
     { to: "/contacto", label: "Contacto", icon: Mail }
   ];
 
@@ -104,18 +103,12 @@ const Navbar = () => {
             </Link>
             <Link to="/proyectos" className={linkClass}>
               <span className="relative">
-                Obras
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-              </span>
-            </Link>
-            <Link to="/clientes" className={linkClass}>
-              <span className="relative">
-                Clientes
+                Obras Ejecutadas
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </span>
             </Link>
             <Link to="/contacto" className={contactButtonClass}>
-              <span className="relative z-10">Contacto</span>
+              <span className="relative z-10 text-white">Contacto</span>
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
             </Link>
           </div>
