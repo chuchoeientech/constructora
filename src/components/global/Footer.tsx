@@ -84,18 +84,7 @@ const Footer = () => {
                   className="text-gray-400 hover:text-white transition-all duration-200 hover:translate-x-1 inline-block group"
                 >
                   <span className="relative">
-                    Obras
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 group-hover:w-full transition-all duration-300"></span>
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  to="/clientes" 
-                  className="text-gray-400 hover:text-white transition-all duration-200 hover:translate-x-1 inline-block group"
-                >
-                  <span className="relative">
-                    Clientes
+                    Obras Ejecutadas
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 group-hover:w-full transition-all duration-300"></span>
                   </span>
                 </Link>
@@ -174,10 +163,6 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-gray-400 text-center md:text-left">
               <p>&copy; {new Date().getFullYear()} FENAR Constructora. Todos los derechos reservados.</p>
-            </div>
-            <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Política de Privacidad</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">Términos de Servicio</a>
             </div>
             <a 
               href='https://eientec.com/' 

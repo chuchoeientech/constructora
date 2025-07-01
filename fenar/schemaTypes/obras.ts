@@ -47,5 +47,11 @@ export default {
       title: 'Inversión',
       type: 'number',
     },
+    {
+      name: 'enDesarrollo',
+      title: 'En desarrollo',
+      type: 'boolean',
+      initialValue: false,
+    },
   ],
 }; 

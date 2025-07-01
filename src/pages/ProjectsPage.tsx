@@ -28,6 +28,12 @@ const ProjectsPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  const formatInvestment = (value: string) => {
+    const number = Number(value);
+    if (isNaN(number)) return value;
+    return number.toLocaleString("de-DE");
+  };
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -137,16 +143,6 @@ const ProjectsPage = () => {
                     </div>
 
                     <div className="flex items-center p-3 bg-orange-50 rounded-lg border-l-4 border-orange-500">
-                      <Ruler className="w-6 h-6 text-orange-500 mr-4 flex-shrink-0" />
-                      <div>
-                        <span className="text-sm font-medium text-orange-600">Área</span>
-                        <p className="text-gray-900 font-semibold">
-                          {project.area || "No especificado"}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center p-3 bg-orange-50 rounded-lg border-l-4 border-orange-500">
                       <MapPin className="w-6 h-6 text-orange-500 mr-4 flex-shrink-0" />
                       <div>
                         <span className="text-sm font-medium text-orange-600">Ubicación</span>
@@ -161,7 +157,7 @@ const ProjectsPage = () => {
                       <div>
                         <span className="text-sm font-medium text-orange-600">Inversión</span>
                         <p className="text-gray-900 font-semibold">
-                          {project.investment || "No especificada"}
+                          {project.investment ? `${formatInvestment(project.investment)} Gs.` : "No especificada"}
                         </p>
                       </div>
                     </div>

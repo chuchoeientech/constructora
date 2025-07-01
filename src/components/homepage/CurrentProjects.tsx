@@ -205,8 +205,16 @@ const ProjectInfo = ({ project }: { project: any }) => {
 
 const CurrentProjects = () => {
   return (
-    <section id="proyectos" className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="proyectos" className="relative py-24 bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-hidden">
+      {/* Degradado azul en los costados */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden="true"
+        style={{
+          background: 'linear-gradient(90deg, rgba(37,99,235,0.22) 0%, transparent 15%, transparent 85%, rgba(37,99,235,0.22) 100%)'
+        }}
+      />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-20">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
