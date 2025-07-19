@@ -4,42 +4,30 @@ import { Icon } from 'leaflet';
 import { useState } from 'react';
 
 const completedWorks = [
-  {
-    id: 1,
-    department: 'Central',
-    location: 'Asunción',
-    lat: -25.2867,
-    lng: -57.3333,
-    projects: 12,
-    description: 'Capital del país, centro de desarrollo urbano'
-  },
-  {
-    id: 2,
-    department: 'Alto Paraná',
-    location: 'Ciudad del Este',
-    lat: -25.5167,
-    lng: -54.6167,
-    projects: 8,
-    description: 'Ciudad fronteriza, polo comercial importante'
-  },
-  {
-    id: 3,
-    department: 'Itapúa',
-    location: 'Encarnación',
-    lat: -27.3333,
-    lng: -55.8667,
-    projects: 5,
-    description: 'Perla del Sur, turismo y desarrollo'
-  },
-  {
-    id: 4,
-    department: 'Cordillera',
-    location: 'Caacupé',
-    lat: -25.3857,
-    lng: -57.1417,
-    projects: 3,
-    description: 'Centro religioso y cultural'
-  }
+  { id: 5, department: 'Concepción', location: 'Concepción', lat: -23.402084, lng: -57.429235, projects: 1, description: 'Obra realizada' },
+  { id: 6, department: 'Concepción', location: 'Vallemi', lat: -22.1500, lng: -57.9833, projects: 1, description: 'Obra realizada' },
+  { id: 7, department: 'Concepción', location: 'Loreto', lat: -23.2667, lng: -57.0500, projects: 1, description: 'Obra realizada' },
+  { id: 8, department: 'Concepción', location: 'Horqueta', lat: -23.343465, lng: -57.044199, projects: 1, description: 'Obra realizada' },
+  { id: 9, department: 'Concepción', location: 'Yby Yau', lat: -23.8000, lng: -56.5333, projects: 1, description: 'Obra realizada' },
+  { id: 10, department: 'Central', location: 'Ñemby', lat: -25.3949, lng: -57.53574, projects: 1, description: 'Obra realizada' },
+  { id: 11, department: 'Central', location: 'Lambaré', lat: -25.33000, lng: -57.64000, projects: 1, description: 'Obra realizada' },
+  { id: 12, department: 'Central', location: 'San Antonio', lat: -25.42966, lng: -57.547853, projects: 1, description: 'Obra realizada' },
+  { id: 13, department: 'Central', location: 'Limpio', lat: -25.167298, lng: -57.494338, projects: 1, description: 'Obra realizada' },
+  { id: 14, department: 'Central', location: 'Luque', lat: -25.27000, lng: -57.48722, projects: 1, description: 'Obra realizada' },
+  { id: 15, department: 'Itapúa', location: 'Capitán Meza', lat: -27.02000, lng: -55.57000, projects: 1, description: 'Obra realizada' },
+  { id: 16, department: 'Canindeyú', location: 'Saltos del Guairá', lat: -24.055583, lng: -54.308560, projects: 1, description: 'Obra realizada' },
+  { id: 17, department: 'Canindeyú', location: 'Yasy Cañy', lat: -24.0833, lng: -55.5667, projects: 1, description: 'Obra realizada' },
+  { id: 18, department: 'Cordillera', location: 'San José Obrero', lat: -25.383, lng: -57.133, projects: 1, description: 'Obra realizada' },
+  { id: 19, department: 'Cordillera', location: 'Santa Elena', lat: -25.400, lng: -56.800, projects: 1, description: 'Obra realizada' },
+  { id: 20, department: 'Paraguarí', location: 'Paraguarí', lat: -25.623833, lng: -57.150199, projects: 1, description: 'Obra realizada' },
+  { id: 21, department: 'Guairá', location: 'Villarrica', lat: -25.783535, lng: -56.450593, projects: 1, description: 'Obra realizada' },
+  { id: 22, department: 'San Pedro', location: 'Guayaibí', lat: -23.8667, lng: -56.5333, projects: 1, description: 'Obra realizada' },
+  { id: 23, department: 'San Pedro', location: 'Lima', lat: -24.2500, lng: -56.3667, projects: 1, description: 'Obra realizada' },
+  { id: 24, department: 'San Pedro', location: 'Santa Rosa del Aguaray', lat: -24.2500, lng: -56.8333, projects: 1, description: 'Obra realizada' },
+  { id: 25, department: 'San Pedro', location: 'Santaní', lat: -24.0667, lng: -56.3667, projects: 1, description: 'Obra realizada' },
+  { id: 26, department: 'Boquerón', location: 'Filadelfia', lat: -22.347127, lng: -60.028961, projects: 1, description: 'Obra realizada' },
+  { id: 27, department: 'Boquerón', location: 'Mariscal Estigarribia', lat: -22.0333, lng: -60.6333, projects: 1, description: 'Obra realizada' },
+  { id: 28, department: 'Boquerón', location: 'Loma Plata', lat: -22.3667, lng: -59.8333, projects: 1, description: 'Obra realizada' },
 ];
 
 // Icono personalizado simple y funcional
@@ -78,26 +66,9 @@ const LocationMap = () => {
             Nuestras Obras en Todo el País
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Contamos con <span className="font-semibold text-orange-600">{totalProjects} obras entregadas</span> en diferentes departamentos del país,
+            Contamos con obras entregadas en diferentes departamentos del país,
             contribuyendo al desarrollo de la infraestructura nacional con excelencia y compromiso.
           </p>
-        </div>
-
-        {/* Estadísticas */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-          {completedWorks.map((work) => (
-            <div
-              key={work.id}
-              className={`bg-white/80 backdrop-blur-sm rounded-2xl p-6 text-center transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer border border-white/20 ${
-                selectedLocation === work.id ? 'ring-2 ring-orange-500 shadow-lg' : ''
-              }`}
-              onClick={() => setSelectedLocation(selectedLocation === work.id ? null : work.id)}
-            >
-              <div className="text-3xl font-bold text-orange-600 mb-2">{work.projects}</div>
-              <div className="text-sm font-medium text-gray-700 mb-1">{work.department}</div>
-              <div className="text-xs text-gray-500">{work.location}</div>
-            </div>
-          ))}
         </div>
 
         {/* Mapa mejorado */}
@@ -149,20 +120,6 @@ const LocationMap = () => {
                 </Marker>
               ))}
             </MapContainer>
-
-            {/* Overlay con información */}
-            <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/20">
-              <h4 className="font-semibold text-gray-900 mb-2">Leyenda</h4>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <div className="w-4 h-4 bg-orange-500 rounded-full mr-2"></div>
-                  <span className="text-sm text-gray-700">Obras completadas</span>
-                </div>
-                <div className="text-xs text-gray-500">
-                  Haz clic en los marcadores para más información
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 

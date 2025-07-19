@@ -1,53 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Calendar, MapPin, Users } from 'lucide-react';
-
-const projects = [
-  {
-    id: 1,
-    title: 'Torre Corporativa Asunción',
-    description: 'Moderna torre de oficinas de 25 pisos con certificación LEED, ubicada en el corazón financiero de Asunción.',
-    images: [
-      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1577985043696-8bd54d9f093f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1582383063137-fa31ff9e23ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
-    ],
-    progress: 75,
-    location: 'Asunción, Paraguay',
-    duration: '18 meses',
-    team: '45 profesionales',
-    category: 'Corporativo'
-  },
-  {
-    id: 2,
-    title: 'Residencial Las Palmas',
-    description: 'Complejo residencial de lujo con 120 apartamentos, áreas verdes y amenidades de primera clase.',
-    images: [
-      'https://images.unsplash.com/photo-1545249390-6bdfa286032f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
-    ],
-    progress: 45,
-    location: 'San Lorenzo, Paraguay',
-    duration: '24 meses',
-    team: '60 profesionales',
-    category: 'Residencial'
-  },
-  {
-    id: 3,
-    title: 'Centro Comercial del Este',
-    description: 'El centro comercial más moderno de la zona este, con más de 200 locales comerciales y área de entretenimiento.',
-    images: [
-      'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
-    ],
-    progress: 30,
-    location: 'Ciudad del Este, Paraguay',
-    duration: '30 meses',
-    team: '80 profesionales',
-    category: 'Comercial'
-  },
-];
+import client, { urlFor } from '../../sanityClient';
+import { useNavigate } from 'react-router-dom';
 
 const ImageCarousel = ({ images }: { images: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -195,15 +149,84 @@ const ProjectInfo = ({ project }: { project: any }) => {
         <Calendar size={18} className="text-primary" />
         <span className="text-sm font-medium">{project.duration}</span>
       </div>
-      <div className="flex items-center space-x-2 text-gray-600">
-        <Users size={18} className="text-primary" />
-        <span className="text-sm font-medium">{project.team}</span>
-      </div>
     </div>
   );
 };
 
 const CurrentProjects = () => {
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const query = `*[_type == "obras" && enDesarrollo == true]{
+          _id,
+          titulo,
+          descripcion,
+          mainImage,
+          additionalImages,
+          completationYear,
+          area,
+          location,
+          investment
+        }`;
+        const response = await client.fetch(query);
+        // Mapear los datos para adaptarlos al diseño actual
+        const mapped = response.map((obra: any) => {
+          // Unir mainImage y additionalImages en un solo array de imágenes
+          let images: string[] = [];
+          if (obra.mainImage) images.push(urlFor(obra.mainImage).width(1000).url());
+          if (obra.additionalImages && Array.isArray(obra.additionalImages)) {
+            images = images.concat(
+              obra.additionalImages.map((img: any) => urlFor(img).width(1000).url())
+            );
+          }
+          return {
+            id: obra._id,
+            title: obra.titulo,
+            description: obra.descripcion,
+            images,
+            progress: obra.progress ?? 0, // Si no hay campo, poner 0
+            location: obra.location || '',
+            duration: obra.completationYear ? `${obra.completationYear}` : '',
+            team: obra.area ? `${obra.area} m²` : '',
+            category: obra.investment ? `Inversión: $${obra.investment.toLocaleString()}` : '',
+          };
+        });
+        setProjects(mapped);
+      } catch (error) {
+        setProjects([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-24 flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-xl text-gray-600 font-medium">Cargando proyectos...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (!projects.length) {
+    return (
+      <section className="py-24 flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">No hay proyectos en desarrollo actualmente</h2>
+          <p className="text-gray-600">Estamos trabajando en nuevos proyectos. ¡Vuelve pronto para ver novedades!</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="proyectos" className="relative py-24 bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-hidden">
       {/* Degradado azul en los costados */}
@@ -264,10 +287,10 @@ const CurrentProjects = () => {
                     {project.description}
                   </p>
 
-                  {/* Progress Section */}
+                  {/* Progress Section 
                   <div className="pt-6">
                     <ProgressBar progress={project.progress} />
-                  </div>
+                  </div>*/}
                 </div>
               </div>
             </div>
@@ -283,7 +306,10 @@ const CurrentProjects = () => {
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
               Contáctanos para obtener más información sobre nuestros proyectos en desarrollo y futuras oportunidades.
             </p>
-            <button className="inline-flex items-center px-8 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <button
+              className="inline-flex items-center px-8 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              onClick={() => navigate('/contacto')}
+            >
               Contactar Ahora
             </button>
           </div>
