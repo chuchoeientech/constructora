@@ -40,7 +40,7 @@ const Hero = () => {
               <span className="block bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
                 Construyendo
               </span>
-              <span className="block bg-gradient-to-r from-primary via-blue-400 to-primary bg-clip-text text-transparent">
+              <span className="block bg-primary bg-clip-text text-transparent">
                 el Futuro
               </span>
               <span className="block text-4xl md:text-5xl lg:text-6xl text-gray-300 font-light">
@@ -58,11 +58,9 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-6">
               <button 
                 onClick={() => navigate('/proyectos')}
-                className="group relative px-10 py-5 bg-gradient-to-r from-primary to-blue-600 text-white rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-primary/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 overflow-hidden"
+                className="group relative px-10 py-5 bg-primary text-white rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-primary/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 overflow-hidden"
               >
                 <span className="relative z-10">Conoce Nuestros Proyectos</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
               </button>
               
               <button 
@@ -70,7 +68,6 @@ const Hero = () => {
                 className="group relative px-10 py-5 border-2 border-white/30 text-white rounded-full text-lg font-semibold hover:bg-white hover:text-primary transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 backdrop-blur-sm hover:border-white"
               >
                 <span className="relative z-10">Contáctanos</span>
-                <div className="absolute inset-0 bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
               </button>
             </div>
           </div>
