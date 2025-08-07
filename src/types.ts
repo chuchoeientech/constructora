@@ -15,3 +15,11 @@ export interface Project extends EntrySkeletonType {
     contentTypeId: "constructora"; // Cambiado para coincidir con el JSON preview
     fields: ProjectFields;
 }
+
+export interface SanityImageSource {
+  _type: 'image';
+  asset: {
+    _ref: string;
+    _type: 'reference';
+  };
+}
