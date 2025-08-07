@@ -1,8 +1,17 @@
+import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { client, urlFor } from '../../sanityClient';
+import { SanityImageSource } from '../../types';
+
+interface Client {
+  _id: string;
+  nombre: string;
+  logo: SanityImageSource;
+}
 
 // Estilos personalizados mejorados para los bullets y navegación
 const swiperStyles = `
@@ -69,58 +78,18 @@ const swiperStyles = `
   }
 `;
 
-const clients = [
-  {
-    id: 1,
-    name: 'Banco Nacional',
-    logo: 'https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
-    category: 'Sector Financiero'
-  },
-  {
-    id: 2,
-    name: 'Shopping Del Sol',
-    logo: 'https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
-    category: 'Comercio'
-  },
-  {
-    id: 3,
-    name: 'Universidad Nacional',
-    logo: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
-    category: 'Educación'
-  },
-  {
-    id: 4,
-    name: 'Hospital Central',
-    logo: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
-    category: 'Salud'
-  },
-  {
-    id: 5,
-    name: 'Municipalidad de Asunción',
-    logo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
-    category: 'Gobierno'
-  },
-  {
-    id: 6,
-    name: 'Centro Comercial Paseo La Galería',
-    logo: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
-    category: 'Comercio'
-  },
-  {
-    id: 7,
-    name: 'Ministerio de Obras Públicas',
-    logo: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
-    category: 'Gobierno'
-  },
-  {
-    id: 8,
-    name: 'Terminal de Ómnibus',
-    logo: 'https://images.unsplash.com/photo-1495435229349-e86db7bfa013?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
-    category: 'Transporte'
-  }
-];
-
 const ClientsCarousel = () => {
+  const [clients, setClients] = useState<Client[]>([]);
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      const query = '*[_type == "clientes"]{_id, nombre, logo}';
+      const result = await client.fetch<Client[]>(query);
+      setClients(result);
+    };
+
+    fetchClients();
+  }, []);
   return (
     <section className="py-32 relative overflow-hidden">
       {/* Fondo con gradiente sutil */}
@@ -171,21 +140,18 @@ const ClientsCarousel = () => {
             className="!pb-20 custom-swiper"
           >
             {clients.map((client) => (
-              <SwiperSlide key={client.id} className="h-auto">
-                <div className="client-card p-8 rounded-3xl shadow-lg text-center transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 h-full group">
-                  <div className="client-logo-container w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 mx-auto mb-6 rounded-full overflow-hidden p-2">
+              <SwiperSlide key={client._id} className="h-auto">
+                <div className="client-card flex flex-col justify-center items-center p-6 rounded-3xl shadow-lg text-center transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 h-full group">
+                  <div className="client-logo-container w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-5 rounded-full overflow-hidden p-1.5">
                     <img
-                      src={client.logo}
-                      alt={client.name}
-                      className="w-full h-full object-cover rounded-full transform transition-transform duration-500 group-hover:scale-110"
+                      src={urlFor(client.logo).width(300).url()}
+                      alt={client.nombre}
+                      className="w-full h-full object-contain rounded-full transform transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 group-hover:text-orange-600 transition-colors duration-300">
-                    {client.name}
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-orange-600 transition-colors duration-300">
+                    {client.nombre}
                   </h3>
-                  <span className="inline-block px-4 py-2 bg-gradient-to-r from-orange-100 to-amber-100 text-orange-700 text-sm font-medium rounded-full">
-                    {client.category}
-                  </span>
                 </div>
               </SwiperSlide>
             ))}
