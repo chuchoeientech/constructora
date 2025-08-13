@@ -47,11 +47,11 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center text-gray-400 hover:text-white transition-colors duration-200">
                 <Phone className="h-4 w-4 mr-3 text-orange-400" />
-                <span>+595 21 123 456</span>
+                <span>+595981613500</span>
               </div>
               <div className="flex items-center text-gray-400 hover:text-white transition-colors duration-200">
                 <Mail className="h-4 w-4 mr-3 text-orange-400" />
-                <span>info@fenar.com.py</span>
+                <span>constructorafenar@hotmail.com</span>
               </div>
               <div className="flex items-start text-gray-400 hover:text-white transition-colors duration-200">
                 <MapPin className="h-4 w-4 mr-3 mt-0.5 text-orange-400 flex-shrink-0" />
@@ -85,6 +85,17 @@ const Footer = () => {
                 >
                   <span className="relative">
                     Obras Ejecutadas
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 group-hover:w-full transition-all duration-300"></span>
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/clientes" 
+                  className="text-gray-400 hover:text-white transition-all duration-200 hover:translate-x-1 inline-block group"
+                >
+                  <span className="relative">
+                    Clientes
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 group-hover:w-full transition-all duration-300"></span>
                   </span>
                 </Link>

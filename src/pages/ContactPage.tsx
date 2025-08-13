@@ -9,11 +9,44 @@ const ContactPage = () => {
     subject: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setSubmitMessage('');
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('subject', formData.subject);
+      formDataToSend.append('message', formData.message);
+
+      const response = await fetch('https://formspree.io/f/movlrodp', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formDataToSend,
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setSubmitMessage('¡Gracias! Tu mensaje ha sido enviado.');
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+        setSubmitMessage('Hubo un problema al enviar tu mensaje. Intenta de nuevo más tarde.');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setSubmitMessage('Error de red. Verifica tu conexión e intenta nuevamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -45,7 +78,7 @@ const ContactPage = () => {
                   <Building2 className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Oficina Central</h3>
-                    <p className="text-gray-600">Avda. Mariscal López 1234<br />Asunción, Paraguay</p>
+                    <p className="text-gray-600">Comendador Nicolas Bo 1868 casi San Esteban<br />Lambaré, Paraguay</p>
                   </div>
                 </div>
 
@@ -53,7 +86,7 @@ const ContactPage = () => {
                   <Phone className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Teléfonos</h3>
-                    <p className="text-gray-600">+595 21 123 4567<br />+595 981 123 456</p>
+                    <p className="text-gray-600">+595981613500</p>
                   </div>
                 </div>
 
@@ -61,7 +94,7 @@ const ContactPage = () => {
                   <Mail className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Email</h3>
-                    <p className="text-gray-600">info@constructorapy.com<br />ventas@constructorapy.com</p>
+                    <p className="text-gray-600">constructorafenar@hotmail.com</p>
                   </div>
                 </div>
 
@@ -69,7 +102,7 @@ const ContactPage = () => {
                   <Clock className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-800">Horario de Atención</h3>
-                    <p className="text-gray-600">Lunes a Viernes: 8:00 - 17:00<br />Sábados: 8:00 - 12:00</p>
+                    <p className="text-gray-600">Lunes a Viernes: 8:30 - 18:00</p>
                   </div>
                 </div>
               </div>
@@ -177,9 +210,15 @@ const ContactPage = () => {
                 <button
                   type="submit"
                   className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary/90 transition duration-300"
+                  disabled={isSubmitting}
                 >
-                  Enviar mensaje
+                  {isSubmitting ? 'Enviando…' : 'Enviar mensaje'}
                 </button>
+                {submitStatus !== 'idle' && (
+                  <p className={`text-sm mt-3 ${submitStatus === 'success' ? 'text-green-600' : 'text-red-600'}`}>
+                    {submitMessage}
+                  </p>
+                )}
               </div>
             </form>
           </div>

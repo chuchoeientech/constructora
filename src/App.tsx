@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
 import Footer from './components/global/Footer';
+import WhatsAppButton from './components/global/WhatsAppButton';
+import ClientsPage from './pages/ClientsPage';
 
 function App() {
   return (
@@ -13,9 +15,11 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/proyectos" element={<ProjectsPage />} />
+          <Route path="/clientes" element={<ClientsPage />} />
           <Route path="/contacto" element={<ContactPage />} />
         </Routes>
         <Footer />
+        <WhatsAppButton />
       </div>
     </Router>
   );
