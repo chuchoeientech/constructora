@@ -10,14 +10,42 @@ const ContactForm = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simular envío
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log(formData);
-    setIsSubmitting(false);
+    setSubmitStatus('idle');
+    setSubmitMessage('');
+
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('message', formData.message);
+
+      const response = await fetch('https://formspree.io/f/movlrodp', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formDataToSend,
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setSubmitMessage('¡Gracias! Tu mensaje ha sido enviado.');
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+        setSubmitMessage('Hubo un problema al enviar tu mensaje. Intenta de nuevo más tarde.');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setSubmitMessage('Error de red. Verifica tu conexión e intenta nuevamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -60,7 +88,7 @@ const ContactForm = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Teléfono</p>
-                    <p className="text-gray-800 font-semibold">+595 21 123 4567</p>
+                    <p className="text-gray-800 font-semibold">+595981613500</p>
                   </div>
                 </div>
                 <div className="flex items-center group">
@@ -69,7 +97,7 @@ const ContactForm = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Email</p>
-                    <p className="text-gray-800 font-semibold">contacto@constructorapy.com</p>
+                    <p className="text-gray-800 font-semibold">constructorafenar@hotmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-center group">
@@ -78,7 +106,7 @@ const ContactForm = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 font-medium">Ubicación</p>
-                    <p className="text-gray-800 font-semibold">Asunción, Paraguay</p>
+                    <p className="text-gray-800 font-semibold">Comendador Nicolas Bo 1868 casi San Esteban<br />Lambaré, Paraguay</p>
                   </div>
                 </div>
               </div>
@@ -90,15 +118,7 @@ const ContactForm = () => {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span>Lunes - Viernes</span>
-                  <span className="font-semibold">8:00 - 18:00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Sábados</span>
-                  <span className="font-semibold">9:00 - 14:00</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Domingos</span>
-                  <span className="font-semibold">Cerrado</span>
+                  <span className="font-semibold">8:30 - 18:00</span>
                 </div>
               </div>
             </div>
@@ -190,6 +210,11 @@ const ContactForm = () => {
                   </>
                 )}
               </button>
+              {submitStatus !== 'idle' && (
+                <p className={`text-sm mt-3 ${submitStatus === 'success' ? 'text-green-600' : 'text-red-600'}`}>
+                  {submitMessage}
+                </p>
+              )}
             </form>
           </div>
         </div>
