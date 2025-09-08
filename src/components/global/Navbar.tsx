@@ -68,7 +68,6 @@ const Navbar = () => {
   const mobileMenuItems = [
     { to: "/", label: "Inicio", icon: Home },
     { to: "/proyectos", label: "Obras Ejecutadas", icon: Building2 },
-    { to: "/clientes", label: "Clientes", icon: Users },
     { to: "/contacto", label: "Contacto", icon: Mail }
   ];
 
@@ -105,12 +104,6 @@ const Navbar = () => {
             <Link to="/proyectos" className={linkClass}>
               <span className="relative">
                 Obras Ejecutadas
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-              </span>
-            </Link>
-            <Link to="/clientes" className={linkClass}>
-              <span className="relative">
-                Clientes
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </span>
             </Link>

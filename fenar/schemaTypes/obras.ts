@@ -49,7 +49,7 @@ export default {
     },
     {
       name: 'enDesarrollo',
-      title: 'En desarrollo',
+      title: 'Destacada',
       type: 'boolean',
       initialValue: false,
     },
