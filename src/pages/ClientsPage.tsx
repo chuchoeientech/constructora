@@ -40,18 +40,18 @@ const ClientsPage = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5">
           {clients.map((clientItem) => (
             <div key={clientItem._id} className="group h-full">
-              <div className="flex flex-col items-center text-center p-8 rounded-3xl shadow-lg border border-orange-100 bg-gradient-to-br from-white to-amber-50/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl h-full min-h-[300px]">
-                <div className="w-full h-40 sm:h-48 mb-5 rounded-2xl overflow-hidden bg-white flex items-center justify-center">
+              <div className="flex flex-col items-center text-center p-4 sm:p-5 rounded-2xl shadow border border-orange-100 bg-gradient-to-br from-white to-amber-50/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full min-h-[180px] sm:min-h-[200px]">
+                <div className="w-full h-24 sm:h-28 mb-3 rounded-xl overflow-hidden bg-white flex items-center justify-center">
                   <img
-                    src={urlFor(clientItem.logo).fit('max').width(800).url()}
+                    src={urlFor(clientItem.logo).fit('max').width(400).url()}
                     alt={clientItem.nombre}
                     className="max-h-full max-w-full object-contain"
                   />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-800 group-hover:text-orange-600 transition-colors duration-300">
+                <h3 className="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-orange-600 transition-colors duration-300">
                   {clientItem.nombre}
                 </h3>
               </div>
