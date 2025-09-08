@@ -25,9 +25,11 @@ const completedWorks = [
   { id: 23, department: 'San Pedro', location: 'Lima', lat: -24.2500, lng: -56.3667, projects: 1, description: 'Obra realizada' },
   { id: 24, department: 'San Pedro', location: 'Santa Rosa del Aguaray', lat: -24.2500, lng: -56.8333, projects: 1, description: 'Obra realizada' },
   { id: 25, department: 'San Pedro', location: 'Santaní', lat: -24.0667, lng: -56.3667, projects: 1, description: 'Obra realizada' },
-  { id: 26, department: 'Boquerón', location: 'Filadelfia', lat: -22.347127, lng: -60.028961, projects: 1, description: 'Obra realizada' },
-  { id: 27, department: 'Boquerón', location: 'Mariscal Estigarribia', lat: -22.0333, lng: -60.6333, projects: 1, description: 'Obra realizada' },
+  { id: 26, department: 'Chaco', location: 'Ciudad de Filadelfia', lat: -22.347127, lng: -60.028961, projects: 1, description: 'Obra realizada' },
+  { id: 27, department: 'Chaco', location: 'Mariscal Estigarribia', lat: -22.0333, lng: -60.6333, projects: 1, description: 'Obra realizada' },
   { id: 28, department: 'Boquerón', location: 'Loma Plata', lat: -22.3667, lng: -59.8333, projects: 1, description: 'Obra realizada' },
+  { id: 29, department: 'Alto Paraná', location: 'Cedrales', lat: -25.654085, lng: -54.718116, projects: 1, description: 'Obra realizada' },
+  { id: 30, department: 'Alto Paraná', location: 'Yguazú', lat: -25.4507, lng: -55.0226, projects: 1, description: 'Obra realizada' },
 ];
 
 // Icono personalizado simple y funcional
@@ -43,7 +45,6 @@ const customIcon = new Icon({
 const LocationMap = () => {
   const [selectedLocation, setSelectedLocation] = useState<number | null>(null);
 
-  const totalProjects = completedWorks.reduce((sum, work) => sum + work.projects, 0);
 
   return (
     <section id="ubicaciones" className="py-24 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 relative overflow-hidden">

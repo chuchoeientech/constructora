@@ -148,22 +148,11 @@ const Footer = () => {
             </h3>
             <div className="flex space-x-4">
               <a 
-                href="#" 
-                className="group relative p-3 bg-gray-800 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-orange-500/25"
-              >
-                <Facebook className="h-6 w-6 text-gray-400 group-hover:text-white transition-colors duration-200" />
-              </a>
-              <a 
-                href="#" 
+                href="https://www.instagram.com/constructorafenar/?igsh=MXM4NzF5Z3g1MGd0MQ%3D%3D#"
+                target='_blank' 
                 className="group relative p-3 bg-gray-800 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-orange-500/25"
               >
                 <Instagram className="h-6 w-6 text-gray-400 group-hover:text-white transition-colors duration-200" />
-              </a>
-              <a 
-                href="#" 
-                className="group relative p-3 bg-gray-800 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-orange-500/25"
-              >
-                <Linkedin className="h-6 w-6 text-gray-400 group-hover:text-white transition-colors duration-200" />
               </a>
             </div>
           </div>
