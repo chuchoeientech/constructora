@@ -74,13 +74,13 @@ const LocationMap = () => {
 
         {/* Mapa mejorado */}
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-white/20">
-          <div className="h-[700px] relative">
+          <div className="h-[420px] sm:h-[500px] md:h-[600px] lg:h-[700px] relative">
             <MapContainer
               center={[-25.8867, -56.3333]}
               zoom={7}
               style={{ height: '100%', width: '100%' }}
               className="z-0"
-              dragging={false}
+              dragging={true}
               scrollWheelZoom={false}
               doubleClickZoom={false}
               zoomControl={false}
