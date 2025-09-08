@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Hero = () => {
+type HeroProps = {
+  bannerUrl?: string;
+};
+
+const Hero = ({ bannerUrl }: HeroProps) => {
   const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -15,7 +19,7 @@ const Hero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-fixed transform scale-105"
         style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80")',
+          backgroundImage: bannerUrl ? `url("${bannerUrl}")` : 'none',
         }}
       >
         {/* Overlay con gradiente más sofisticado */}

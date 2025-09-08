@@ -1,157 +1,7 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Calendar, MapPin, Users } from 'lucide-react';
+import { Calendar, MapPin, Star } from 'lucide-react';
 import client, { urlFor } from '../../sanityClient';
 import { useNavigate } from 'react-router-dom';
-
-const ImageCarousel = ({ images }: { images: string[] }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [direction, setDirection] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-
-    if (isAutoPlaying) {
-      interval = setInterval(() => {
-        setDirection(1);
-        setIsAnimating(true);
-        setCurrentIndex((prev) => (prev + 1) % images.length);
-        setTimeout(() => setIsAnimating(false), 500);
-      }, 5000);
-    }
-
-    return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
-  }, [images.length, isAutoPlaying]);
-
-  const nextImage = () => {
-    setIsAutoPlaying(false);
-    setDirection(1);
-    setIsAnimating(true);
-    setCurrentIndex((prev) => (prev + 1) % images.length);
-    setTimeout(() => setIsAnimating(false), 500);
-  };
-
-  const prevImage = () => {
-    setIsAutoPlaying(false);
-    setDirection(-1);
-    setIsAnimating(true);
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-    setTimeout(() => setIsAnimating(false), 500);
-  };
-
-  const handleMouseEnter = () => {
-    setIsAutoPlaying(false);
-  };
-
-  const handleMouseLeave = () => {
-    setIsAutoPlaying(true);
-  };
-
-  return (
-    <div
-      className="relative group overflow-hidden rounded-2xl shadow-2xl"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div
-        className={`relative w-full h-[500px] transition-transform duration-700 ease-out ${isAnimating
-          ? direction > 0
-            ? 'animate-slideLeft'
-            : 'animate-slideRight'
-          : ''
-          }`}
-      >
-        <img
-          src={images[currentIndex]}
-          alt="Project"
-          className="w-full h-full object-cover"
-        />
-        {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-      </div>
-      
-      {/* Navigation buttons */}
-      <button
-        onClick={prevImage}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm p-3 rounded-full text-white opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/30 transform hover:scale-110 border border-white/20"
-      >
-        <ChevronLeft size={28} />
-      </button>
-      <button
-        onClick={nextImage}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm p-3 rounded-full text-white opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/30 transform hover:scale-110 border border-white/20"
-      >
-        <ChevronRight size={28} />
-      </button>
-      
-      {/* Dots indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              setIsAutoPlaying(false);
-              setDirection(index > currentIndex ? 1 : -1);
-              setIsAnimating(true);
-              setCurrentIndex(index);
-              setTimeout(() => setIsAnimating(false), 500);
-            }}
-            className={`transition-all duration-300 transform hover:scale-125 ${
-              index === currentIndex
-                ? 'w-8 h-3 bg-white rounded-full'
-                : 'w-3 h-3 bg-white/50 rounded-full hover:bg-white/75'
-            }`}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const ProgressBar = ({ progress }: { progress: number }) => {
-  return (
-    <div className="space-y-3">
-      <div className="flex justify-between items-center">
-        <span className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-          Progreso del Proyecto
-        </span>
-        <span className="text-lg font-bold text-primary">
-          {progress}%
-        </span>
-      </div>
-      <div className="relative">
-        <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-1000 ease-out relative"
-            style={{ width: `${progress}%` }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const ProjectInfo = ({ project }: { project: any }) => {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <div className="flex items-center space-x-2 text-gray-600">
-        <MapPin size={18} className="text-primary" />
-        <span className="text-sm font-medium">{project.location}</span>
-      </div>
-      <div className="flex items-center space-x-2 text-gray-600">
-        <Calendar size={18} className="text-primary" />
-        <span className="text-sm font-medium">{project.duration}</span>
-      </div>
-    </div>
-  );
-};
 
 const CurrentProjects = () => {
   const [projects, setProjects] = useState<any[]>([]);
@@ -168,31 +18,24 @@ const CurrentProjects = () => {
           mainImage,
           additionalImages,
           completationYear,
-          area,
-          location,
-          investment
+          location
         }`;
         const response = await client.fetch(query);
-        // Mapear los datos para adaptarlos al diseño actual
         const mapped = response.map((obra: any) => {
-          // Unir mainImage y additionalImages en un solo array de imágenes
-          let images: string[] = [];
-          if (obra.mainImage) images.push(urlFor(obra.mainImage).width(1000).url());
+          const images: string[] = [];
+          if (obra.mainImage) images.push(urlFor(obra.mainImage).width(1200).height(900).fit('crop').url());
           if (obra.additionalImages && Array.isArray(obra.additionalImages)) {
-            images = images.concat(
-              obra.additionalImages.map((img: any) => urlFor(img).width(1000).url())
+            images.push(
+              ...obra.additionalImages.map((img: any) => urlFor(img).width(1200).height(900).fit('crop').url())
             );
           }
           return {
             id: obra._id,
             title: obra.titulo,
             description: obra.descripcion,
-            images,
-            progress: obra.progress ?? 0, // Si no hay campo, poner 0
+            image: images[0] || '',
             location: obra.location || '',
-            duration: obra.completationYear ? `${obra.completationYear}` : '',
-            team: obra.area ? `${obra.area} m²` : '',
-            category: obra.investment ? `Inversión: $${obra.investment.toLocaleString()}` : '',
+            year: obra.completationYear ? `${obra.completationYear}` : ''
           };
         });
         setProjects(mapped);
@@ -210,7 +53,7 @@ const CurrentProjects = () => {
       <section className="py-24 flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600 font-medium">Cargando proyectos...</p>
+          <p className="text-xl text-gray-600 font-medium">Cargando obras destacadas...</p>
         </div>
       </section>
     );
@@ -220,99 +63,73 @@ const CurrentProjects = () => {
     return (
       <section className="py-24 flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">No hay proyectos en desarrollo actualmente</h2>
-          <p className="text-gray-600">Estamos trabajando en nuevos proyectos. ¡Vuelve pronto para ver novedades!</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">No hay obras destacadas por el momento</h2>
+          <p className="text-gray-600">Pronto actualizaremos esta sección con nuevos proyectos.</p>
         </div>
       </section>
     );
   }
 
   return (
-    <section id="proyectos" className="relative py-24 bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-hidden">
-      {/* Degradado azul en los costados */}
+    <section id="obras-destacadas" className="relative py-24 bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-hidden">
       <div
         className="pointer-events-none absolute inset-0 z-0"
         aria-hidden="true"
         style={{
-          background: 'linear-gradient(90deg, rgba(37,99,235,0.22) 0%, transparent 15%, transparent 85%, rgba(37,99,235,0.22) 100%)'
+          background: 'linear-gradient(90deg, rgba(37,99,235,0.12) 0%, transparent 15%, transparent 85%, rgba(37,99,235,0.12) 100%)'
         }}
       />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-14">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-            <span className="w-2 h-2 bg-primary rounded-full mr-2 animate-pulse"></span>
-            Proyectos Activos
+            <Star size={16} className="mr-2" />
+            Obras destacadas
           </div>
-          <h2 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Obras en <span className="text-primary">Proceso</span>
+          <h2 className="text-5xl font-bold text-gray-900 mb-4 leading-tight">
+            Nuestros <span className="text-primary">proyectos</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Descubre nuestros proyectos más ambiciosos que están transformando el paisaje urbano de Paraguay
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Una selección de obras que representan nuestra calidad y experiencia.
           </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="space-y-32">
-          {projects.map((project, index) => (
-            <div
-              key={project.id}
-              className={`group ${
-                index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-              } flex flex-col lg:flex-row gap-12 items-center`}
-            >
-              {/* Image Section */}
-              <div className="w-full lg:w-1/2">
-                <ImageCarousel images={project.images} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          {projects.map((project) => (
+            <article key={project.id} className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                {project.image && (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-70 group-hover:opacity-80 transition-opacity" />
               </div>
-
-              {/* Content Section */}
-              <div className="w-full lg:w-1/2 lg:px-8">
-                <div className="space-y-6">
-                  {/* Category Badge */}
-                  <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 text-primary text-sm font-semibold border border-primary/20">
-                    {project.category}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-4xl font-bold text-gray-900 leading-tight group-hover:text-primary transition-colors duration-300">
-                    {project.title}
-                  </h3>
-
-                  {/* Project Info */}
-                  <ProjectInfo project={project} />
-
-                  {/* Description */}
-                  <p className="text-lg text-gray-600 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {/* Progress Section 
-                  <div className="pt-6">
-                    <ProgressBar progress={project.progress} />
-                  </div>*/}
+              <div className="p-6 space-y-3 flex-1 flex flex-col">
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors min-h-[3.5rem] line-clamp-2">
+                  {project.title}
+                </h3>
+                <div className="flex items-center text-gray-600 gap-4 min-h-[1.25rem]">
+                  {project.location && (
+                    <span className="inline-flex items-center text-sm truncate whitespace-nowrap max-w-[60%]"><MapPin size={16} className="text-primary mr-1" />{project.location}</span>
+                  )}
+                  {project.year && (
+                    <span className="inline-flex items-center text-sm whitespace-nowrap"><Calendar size={16} className="text-primary mr-1" />{project.year}</span>
+                  )}
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-20">
-          <div className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-2xl p-8 border border-primary/20">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              ¿Interesado en nuestros proyectos?
-            </h3>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Contáctanos para obtener más información sobre nuestros proyectos en desarrollo y futuras oportunidades.
-            </p>
-            <button
-              className="inline-flex items-center px-8 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 shadow-lg"
-              onClick={() => navigate('/contacto')}
-            >
-              Contactar Ahora
-            </button>
-          </div>
+        <div className="text-center mt-16">
+          <button
+            className="inline-flex items-center px-8 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 shadow-lg"
+            onClick={() => navigate('/proyectos')}
+          >
+            Ver todas las obras
+          </button>
         </div>
       </div>
     </section>

@@ -183,7 +183,7 @@ const Footer = () => {
               <span className="flex items-center">
                 Desarrollado por 
                 <span className="ml-1 font-semibold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500 group-hover:from-orange-300 group-hover:to-orange-400">
-                  EiEn Innovations Tech
+                  eien.
                 </span>
               </span>
             </a>
