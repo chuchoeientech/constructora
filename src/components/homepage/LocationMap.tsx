@@ -30,6 +30,7 @@ const completedWorks = [
   { id: 28, department: 'Boquerón', location: 'Loma Plata', lat: -22.3667, lng: -59.8333, projects: 1, description: 'Obra realizada' },
   { id: 29, department: 'Alto Paraná', location: 'Cedrales', lat: -25.654085, lng: -54.718116, projects: 1, description: 'Obra realizada' },
   { id: 30, department: 'Alto Paraná', location: 'Yguazú', lat: -25.4507, lng: -55.0226, projects: 1, description: 'Obra realizada' },
+  { id: 31, department: 'Ñeembucú', location: 'San Juan Bautista de Ñeembucú', lat: -26.65, lng: -57.93, projects: 1, description: 'Obra realizada' },
 ];
 
 // Icono personalizado simple y funcional
