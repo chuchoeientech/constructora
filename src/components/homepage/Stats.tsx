@@ -50,7 +50,7 @@ const Stats = () => {
       icon: Star,
       end: 145000000000,
       suffix: '+Gs.',
-      label: 'Millones ejecutados a la perfección',
+      label: 'Ejecutados a la perfección',
       description: 'Compromiso y excelencia en cada obra',
       gradient: 'from-amber-400 to-orange-500',
       bgGradient: 'from-amber-50 to-orange-50'
