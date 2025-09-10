@@ -77,16 +77,16 @@ const LocationMap = () => {
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-white/20">
           <div className="h-[420px] sm:h-[500px] md:h-[600px] lg:h-[700px] relative">
             <MapContainer
-              center={[-25.8867, -56.3333]}
-              zoom={7}
+              center={[-23.45, -58.44]}
+              zoom={6}
               style={{ height: '100%', width: '100%' }}
               className="z-0"
               dragging={true}
-              scrollWheelZoom={false}
-              doubleClickZoom={false}
-              zoomControl={false}
-              touchZoom={false}
-              keyboard={false}
+              scrollWheelZoom={true}
+              doubleClickZoom={true}
+              zoomControl={true}
+              touchZoom={true}
+              keyboard={true}
             >
               <TileLayer
                 url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
