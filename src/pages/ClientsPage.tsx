@@ -1,29 +1,9 @@
-import { useEffect, useState } from 'react';
-import { client, urlFor } from '../sanityClient';
-import { SanityImageSource } from '../types';
-
-interface ClientItem {
-  _id: string;
-  nombre: string;
-  logo: SanityImageSource;
-}
+import CountUp from 'react-countup';
+import { useInView } from 'react-intersection-observer';
+import { Building, Briefcase } from 'lucide-react';
 
 const ClientsPage = () => {
-  const [clients, setClients] = useState<ClientItem[]>([]);
-
-  useEffect(() => {
-    const fetchClients = async () => {
-      try {
-        const query = '*[_type == "clientes"]{_id, nombre, logo} | order(nombre asc)';
-        const result = await client.fetch<ClientItem[]>(query);
-        setClients(result);
-      } catch (error) {
-        console.error('Error fetching clients:', error);
-      }
-    };
-
-    fetchClients();
-  }, []);
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
     <section className="py-24 relative overflow-hidden bg-white">
@@ -36,31 +16,52 @@ const ClientsPage = () => {
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto mb-6 rounded-full"></div>
           <p className="text-gray-600 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-            Empresas e instituciones que han confiado en nuestra experiencia y profesionalismo.
+            Cuidamos la confidencialidad. En lugar de logos, te compartimos métricas
+            agregadas sobre nuestra relación con clientes. Trabajamos con entidades públicas. Más de 35 entidades públicas y 5 empresas privadas han confiado en nosotros.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5">
-          {clients.map((clientItem) => (
-            <div key={clientItem._id} className="group h-full">
-              <div className="flex flex-col items-center text-center p-4 sm:p-5 rounded-2xl shadow border border-orange-100 bg-gradient-to-br from-white to-amber-50/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full min-h-[180px] sm:min-h-[200px]">
-                <div className="w-full h-24 sm:h-28 mb-3 rounded-xl overflow-hidden bg-white flex items-center justify-center">
-                  <img
-                    src={urlFor(clientItem.logo).fit('max').width(400).url()}
-                    alt={clientItem.nombre}
-                    className="max-h-full max-w-full object-contain"
-                  />
-                </div>
-                <h3 className="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-orange-600 transition-colors duration-300">
-                  {clientItem.nombre}
-                </h3>
-              </div>
-            </div>
-          ))}
+        <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          {[{
+            icon: Building,
+            value: 35,
+            suffix: '+',
+            label: 'Entidades públicas',
+            description: 'Experiencia en sector público'
+          },{
+            icon: Briefcase,
+            value: 5,
+            suffix: '',
+            label: 'Empresas privadas',
+            description: 'Proyectos con compañías privadas'
+          }].map((stat, index) => {
+            const Icon = stat.icon;
+            return (
+              <div
+                key={index}
+                className={`group relative bg-gradient-to-br from-white to-amber-50 p-8 rounded-3xl shadow-2xl border border-orange-100/50 hover:shadow-orange-500/10 transition-all duration-500 overflow-hidden flex flex-col`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/0 to-amber-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
 
-          {clients.length === 0 && (
-            <div className="col-span-full text-center text-gray-500">No se encontraron clientes.</div>
-          )}
+                <div className="relative w-16 h-16 bg-gradient-to-br from-orange-400 to-amber-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="w-8 h-8 text-white" />
+                </div>
+
+                <div className="relative mb-2">
+                  <h3 className="text-4xl md:text-5xl font-black text-gray-800">
+                    {inView && (
+                      <CountUp end={stat.value} duration={2} delay={index * 0.1} />
+                    )}
+                    <span className="ml-1 text-2xl md:text-3xl font-bold text-gray-600">{stat.suffix}</span>
+                  </h3>
+                </div>
+
+                <h4 className="text-lg font-bold text-gray-800 mb-1">{stat.label}</h4>
+                <p className="text-sm text-gray-600 leading-relaxed">{stat.description}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

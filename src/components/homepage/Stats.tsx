@@ -29,7 +29,7 @@ const Stats = () => {
     },
     {
       icon: Users,
-      end: 55,
+      end: 40,
       suffix: '+',
       label: 'Clientes Satisfechos',
       description: 'Clientes que confían en nosotros',
@@ -44,16 +44,6 @@ const Stats = () => {
       description: 'Trayectoria en el sector',
       gradient: 'from-orange-400 to-pink-500',
       bgGradient: 'from-orange-50 to-pink-50'
-    }
-    ,
-    {
-      icon: Star,
-      end: 145000000000,
-      suffix: '+Gs.',
-      label: 'Ejecutados a la perfección',
-      description: 'Compromiso y excelencia en cada obra',
-      gradient: 'from-amber-400 to-orange-500',
-      bgGradient: 'from-amber-50 to-orange-50'
     }
   ];
 
@@ -93,11 +83,10 @@ const Stats = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {statsData.map((stat, index) => {
             const IconComponent = stat.icon;
-            const isLast = index === statsData.length - 1;
             return (
               <div
                 key={index}
-                className={`group relative bg-gradient-to-br ${stat.bgGradient} p-8 rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/20 border border-orange-100/20 backdrop-blur-sm ${isLast ? 'md:col-span-2 lg:col-span-4' : ''}`}
+                className={`group relative bg-gradient-to-br ${stat.bgGradient} p-8 rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/20 border border-orange-100/20 backdrop-blur-sm aspect-square overflow-hidden flex flex-col`}
                 style={{
                   animationDelay: `${index * 0.1}s`
                 }}
