@@ -11,7 +11,7 @@ const Stats = () => {
   const statsData = [
     {
       icon: Building,
-      end: 450,
+      end: 501,
       suffix: '+',
       label: 'Contratos Públicos',
       description: 'Proyectos completados exitosamente',
@@ -20,7 +20,7 @@ const Stats = () => {
     },
     {
       icon: Construction,
-      end: 19,
+      end: 53,
       suffix: '+',
       label: 'Obras en Ejecución',
       description: 'Proyectos activos en desarrollo',
@@ -128,10 +128,12 @@ const Stats = () => {
 
         {/* Bottom decorative section */}
         <div className="mt-16 text-center">
-          <div className="inline-flex items-center space-x-2 bg-orange-500/20 backdrop-blur-sm px-6 py-3 rounded-full border border-orange-400/30">
-            <Star className="w-5 h-5 text-orange-400 fill-current" />
-            <span className="text-white font-medium">Calidad garantizada en cada proyecto</span>
-            <Star className="w-5 h-5 text-orange-400 fill-current" />
+          <div className="inline-flex items-center space-x-3 bg-orange-500/30 backdrop-blur-md px-10 py-5 rounded-full border border-orange-400/40 shadow-xl">
+            <Star className="w-7 h-7 text-orange-300 fill-current" />
+            <span className="text-white font-semibold text-xl">
+              Obras en ejecucion en 10 departamentos del pais
+            </span>
+            <Star className="w-7 h-7 text-orange-300 fill-current" />
           </div>
         </div>
       </div>
